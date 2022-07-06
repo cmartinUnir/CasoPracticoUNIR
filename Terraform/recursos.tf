@@ -170,7 +170,7 @@ resource "azurerm_linux_virtual_machine" "vm3" {
   name                = "vm3-MASTER"
   resource_group_name = azurerm_resource_group.rgCM.name
   location            = azurerm_resource_group.rgCM.location
-  size                = "Standard_b2ms"
+  size                = "Standard_B1ms"
   admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.nic3.id,
