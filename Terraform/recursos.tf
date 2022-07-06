@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "rgCM" {
+resource "azurerm_resource_group" "rgCMartin" {
   name     = var.resource_group_name
   location = var.location_name
 }
@@ -6,21 +6,21 @@ resource "azurerm_resource_group" "rgCM" {
 resource "azurerm_virtual_network" "vnet" {
   name                = var.network_name
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rgCM.location
-  resource_group_name = azurerm_resource_group.rgCM.name
+  location            = azurerm_resource_group.rgCMartin.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
 }
 
 resource "azurerm_subnet" "subnet" {
   name                 = var.subnet_name
-  resource_group_name  = azurerm_resource_group.rgCM.name
+  resource_group_name  = azurerm_resource_group.rgCMartin.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
 resource "azurerm_public_ip" "IPpub" {
   name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   allocation_method   = "Static"
 
   tags = {
@@ -30,8 +30,8 @@ resource "azurerm_public_ip" "IPpub" {
 
 resource "azurerm_public_ip" "IPpub2" {
   name                = "acceptanceTestPublicIp2"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   allocation_method   = "Static"
 
   tags = {
@@ -41,8 +41,8 @@ resource "azurerm_public_ip" "IPpub2" {
 
 resource "azurerm_public_ip" "IPpub3" {
   name                = "acceptanceTestPublicIp3"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   allocation_method   = "Static"
 
   tags = {
@@ -54,8 +54,8 @@ resource "azurerm_public_ip" "IPpub3" {
 
 resource "azurerm_network_interface" "nic" {
   name                = "vnic"
-  location            = azurerm_resource_group.rgCM.location
-  resource_group_name = azurerm_resource_group.rgCM.name
+  location            = azurerm_resource_group.rgCMartin.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
 
   ip_configuration {
     name                          = "internal"
@@ -68,8 +68,8 @@ resource "azurerm_network_interface" "nic" {
 
 resource "azurerm_network_interface" "nic2" {
   name                = "vnic2"
-  location            = azurerm_resource_group.rgCM.location
-  resource_group_name = azurerm_resource_group.rgCM.name
+  location            = azurerm_resource_group.rgCMartin.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
 
   ip_configuration {
     name                          = "internal"
@@ -82,8 +82,8 @@ resource "azurerm_network_interface" "nic2" {
 
 resource "azurerm_network_interface" "nic3" {
   name                = "vnic3"
-  location            = azurerm_resource_group.rgCM.location
-  resource_group_name = azurerm_resource_group.rgCM.name
+  location            = azurerm_resource_group.rgCMartin.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
 
   ip_configuration {
     name                          = "internal"
@@ -96,8 +96,8 @@ resource "azurerm_network_interface" "nic3" {
 
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "vm1-NFS"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   size                = "Standard_B1ms"
   admin_username      = "azureuser"
   network_interface_ids = [
@@ -132,8 +132,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 resource "azurerm_linux_virtual_machine" "vm2" {
   name                = "vm2-WORKER"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   size                = "Standard_B1ms"
   admin_username      = "azureuser"
   network_interface_ids = [
@@ -168,8 +168,8 @@ resource "azurerm_linux_virtual_machine" "vm2" {
 
 resource "azurerm_linux_virtual_machine" "vm3" {
   name                = "vm3-MASTER"
-  resource_group_name = azurerm_resource_group.rgCM.name
-  location            = azurerm_resource_group.rgCM.location
+  resource_group_name = azurerm_resource_group.rgCMartin.name
+  location            = azurerm_resource_group.rgCMartin.location
   size                = "Standard_B1ms"
   admin_username      = "azureuser"
   network_interface_ids = [
