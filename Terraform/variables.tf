@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = "rgCM"
+  default = "rgCMartin"
 }
 
 variable "location_name" {
