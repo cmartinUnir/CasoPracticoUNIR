@@ -1,4 +1,4 @@
 ---
 
-kubernets_domain: 'jruizcampos.com'
+kubernets_domain: 'cmartin'
 common_packages: ['net-tools', 'wget']
