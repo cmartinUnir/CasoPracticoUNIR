@@ -98,7 +98,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "vm1-NFS"
   resource_group_name = azurerm_resource_group.rgCMartin.name
   location            = azurerm_resource_group.rgCMartin.location
-  size                = "Standard_B1ms"
+  size                = "Standard_F2"
   admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.nic.id,
@@ -134,7 +134,7 @@ resource "azurerm_linux_virtual_machine" "vm2" {
   name                = "vm2-WORKER"
   resource_group_name = azurerm_resource_group.rgCMartin.name
   location            = azurerm_resource_group.rgCMartin.location
-  size                = "Standard_B1ms"
+  size                = "Standard_D2_v2"
   admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.nic2.id,
@@ -170,7 +170,7 @@ resource "azurerm_linux_virtual_machine" "vm3" {
   name                = "vm3-MASTER"
   resource_group_name = azurerm_resource_group.rgCMartin.name
   location            = azurerm_resource_group.rgCMartin.location
-  size                = "Standard_B1ms"
+  size                = "Standard_D2_v2"
   admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.nic3.id,
