@@ -4,7 +4,7 @@
   hostname:
     name: "{{inventory_hostname}}.{{kubernets_domain}}"
     use: systemd
-  when: inventory_hostname is regex("work*|master*")
+  when: inventory_hostname is regex("work*|master*|nfs*")
   become: yes
 
 - name: Agregamos los DNS de los demás hosts
