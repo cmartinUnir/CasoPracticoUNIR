@@ -1,6 +1,6 @@
 ---
 
-- name: Realizando pruebas finales al Cluster
+- name: pruebas finales al Cluster rol tests
   hosts: master
   vars_files:
     - "group_vars/tests.yaml"
