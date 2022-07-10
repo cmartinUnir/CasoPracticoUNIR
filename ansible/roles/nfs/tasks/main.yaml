@@ -5,7 +5,7 @@
     state: present
   become: yes
 
-- name: Creamos el directorio NFS
+- name:  directorio NFS
   file:
     path: /srv/nfs
     state: directory
@@ -20,7 +20,7 @@
   with_items: "{{ groups.master }}"
   become: yes
   
-- name: Agregamos los workers al /etc/exports
+- name: Agregamos workers al /etc/exports
   lineinfile:
     dest: /etc/exports
     line: "/srv/nfs/ {{ hostvars[item].ansible_host }}(rw,sync)"
@@ -29,7 +29,7 @@
   with_items: "{{ groups.workers }}"
   become: yes
 
-- name: Habilitar e iniciamos el servicio de NFS
+- name: Habilitar NFS
   systemd:
     name: nfs-server
     state: started
@@ -37,25 +37,25 @@
     masked: no
   become: yes
   
-- name: Recargamos la configuración del fichero /etc/exports
+- name: configuración del fichero /etc/exports
   shell: exportfs -r
   become: yes
 
-- name: Habilitamos servicios usados por NFS nfs
+- name: Habilitamos  nfs
   firewalld:
     service: nfs
     permanent: true
     state: enabled
   become: yes
 
-- name: Habilitamos servicios usados por NFS rpc-bind
+- name: Habilitamos rpc-bind
   firewalld:
     service: rpc-bind
     permanent: true
     state: enabled
   become: yes
 
-- name: Habilitamos servicios usados por NFS mountd
+- name: Habilitamos servicios  mountd
   firewalld:
     service: mountd
     permanent: true
