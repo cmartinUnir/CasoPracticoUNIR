@@ -3,14 +3,14 @@
 # Llamamos a todos los playbooks relacionados a la instalación de Kubernetes
   
 # Ejecutamos las configuraciones comunes a todos los nodos
-- import_playbook: 01-configuraciones-comunes.yml
+- import_playbook: comunes.yml
 # Ejecutamos las configuraciones correspondientes a los nodos NFS
-- import_playbook: 02-configurando-nfs.yml
+- import_playbook: nfs.yml
 # Ejecutamos las configuraciones comunes a los masters y workers
-- import_playbook: 03-configuraciones-master-worker.yml
+- import_playbook: worker.yml
 # Ejecutamos las configuraciones correspondientes a los nodos Master
-- import_playbook: 04-configurando-master.yml
+- import_playbook: master.yml
 # Ejecutamos las configuraciones correspondientes a los nodos Worker
-- import_playbook: 05-configurando-workers.yml
+- import_playbook: workers.yml
 # Realizamos pruebas finales al cluster recién desplegado
-- import_playbook: 06-tests-cluster.yml
+- import_playbook: cluster.yml
