@@ -1,26 +1,26 @@
 
-- name: Desactivamos la memoria Swap
+- name: desactuvar  memoria Swap
   shell: swapoff -a
   become: yes
   
-- name: Comentamos la línea de la particion swap del /etc/fstab
+- name: particion swap del /etc/fstab
   replace:
     path: /etc/fstab
     regexp: '^([^#].*?\sswap\s+.*)$'
     replace: '# \1'
   become: yes
 
-- name: Reiniciando el server
+- name: reiniciar server
   reboot:
   become: yes
 
-- name: Habilitamos el módulo de Kernel br_netfilter
+- name: módulo de Kernel br_netfilter
   modprobe:
     name: br_netfilter
     state: present
   become: yes
 
-- name: Habilitamos el enmascaramiento en la zona public
+- name: enmascaramiento en la zona public
   firewalld:
     masquerade: yes
     state: enabled
@@ -36,21 +36,21 @@
     state: present
   become: yes
   
-- name: Habilitamos puertos usados por la SDN Flannel para Azure 8285 UDP
+- name: SDN Flannel para Azure 8285 UDP
   firewalld:
     port: 8285/udp
     permanent: true
     state: enabled
   become: yes
   
-- name: Habilitamos puertos usados por la SDN Flannel para Azure 8472 UDP
+- name: SDN Flannel para Azure 8472 UDP
   firewalld:
     port: 8472/udp
     permanent: true
     state: enabled
   become: yes
 
-- name: Habilitar y reiniciar el servicio firewalld (Red Hat)
+- name: firewalld (Red Hat)
   systemd:
     name: firewalld
     state: restarted
@@ -70,7 +70,7 @@
   shell: sysctl --system
   become: yes
   
-- name: Agregamos el repositorio de Docker
+- name: repositorio de Docker
   # Lo hacemos por shell porque el modulo dnf no soporta agregar archivos .repo con más de 1 repositorio incluidos
   shell: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
   args:
@@ -84,7 +84,7 @@
     state: present
   become: yes
 
-- name: Habilitar e iniciamos el servicio de Docker
+- name: servicio de Docker
   systemd:
     name: docker
     state: started
@@ -99,7 +99,7 @@
     mode: '0644'
   become: yes
 
-- name: Reiniciando el servicio de Docker
+- name: Reiniciando Docker
   systemd:
     name: docker
     state: restarted
