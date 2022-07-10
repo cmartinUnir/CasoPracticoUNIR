@@ -1,13 +1,13 @@
 ---
 
-- name: Configuramos el hostname
+- name: hostname
   hostname:
     name: "{{inventory_hostname}}.{{kubernets_domain}}"
     use: systemd
   when: inventory_hostname is regex("work*|master*|nfs*")
   become: yes
 
-- name: Agregamos los DNS de los demás hosts
+- name: DNS hosts
   lineinfile:
     dest: /etc/hosts
     regexp: '.*{{ item }}$'
@@ -34,19 +34,19 @@
     state: disabled
   become: yes
 
-- name: Instalando Chrony (Red Hat/Centos)
+- name: Instalando Chrony
   dnf:
     name: chrony
     state: present
   become: yes
 
 
-- name: Configurando el timezone
+- name: timezone
   timezone:
     name: Europe/Madrid
   become: yes
   
-- name: Habilitar servicio Chronyd (Red Hat)
+- name: servicio Chronyd (Red Hat)
   systemd:
     name: chronyd
     state: started
