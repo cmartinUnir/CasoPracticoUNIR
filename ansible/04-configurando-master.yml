@@ -1,6 +1,6 @@
 ---
 
-- name: Realizando configuraciones en los masters
+- name: configuraciones en los masters rol master
   hosts: master
   vars_files:
     - "group_vars/master.yaml"
