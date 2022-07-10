@@ -1,6 +1,6 @@
 ---
 
-- name: Realizando configuraciones comunes a los masters y workers
+- name: configuraciones comunes rol masterworker
   hosts: master:workers
   vars_files:
     - "group_vars/master_workers.yaml"
