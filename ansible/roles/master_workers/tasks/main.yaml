@@ -1,5 +1,5 @@
 
-- name: desactuvar  memoria Swap
+- name: desactivar  memoria Swap
   shell: swapoff -a
   become: yes
   
