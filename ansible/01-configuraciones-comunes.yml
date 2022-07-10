@@ -1,6 +1,6 @@
 ---
 
-- name: Realizando configuraciones comunes a todos los nodos
+- name: configuraciones para todos los nodos llamando a rol common
   hosts: all
   vars_files:
     - "group_vars/common.yaml"
