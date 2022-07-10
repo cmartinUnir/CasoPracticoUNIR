@@ -1,6 +1,6 @@
 ---
 
-- name: Realizando configuraciones en los NFS
+- name: configuraciones en los NFS rol nfs
   hosts: nfs
   vars_files:
     - "group_vars/nfs.yaml"
