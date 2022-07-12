@@ -69,40 +69,34 @@
 - name: Recargamos todas las variables de sysctl
   shell: sysctl --system
   become: yes
-  
-- name: repositorio de Docker
-  # Lo hacemos por shell porque el modulo dnf no soporta agregar archivos .repo con más de 1 repositorio incluidos
-  shell: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-  args:
-    creates: /etc/yum.repos.d/docker-ce.repo
-    warn: false
-  become: yes
+ 
+ - name: descargar repo1
+    shell: wget -O /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_8_Stream/devel:kubic:libcontainers:stable.repo
+   become: yes
 
-- name: Instalamos Docker
+- name: descargar repo2
+    shell: wget -O /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1/CentOS_8_Stream/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo
+  become: yes
+  
+ - name: instalar paquetes
   dnf:
-    name: "{{ docker_packages }}"
-    state: present
+   name: cri-o
+   state: latest
   become: yes
 
-- name: servicio de Docker
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
-    masked: no
-  become: yes
-  
-- name: Copiamos el daemon.json de Docker para asegurarnos que el cgroupdriver sea systemd
-  copy:
-    src: daemon.json
-    dest: /etc/docker/daemon.json
-    mode: '0644'
+- name: copiar crio.conf
+  shell: |
+   sudo bash -c 'cat <<EOF> /etc/modules-load.d/crio.conf
+   overlay
+   br_netfilter
+   EOF'
   become: yes
 
-- name: Reiniciando Docker
+- name: iniciar servicio
   systemd:
-    name: docker
-    state: restarted
+   name: crio
+   state: started
+   enabled: true
   become: yes
 
 - name: Configuramos el repositorio de Kubernetes
