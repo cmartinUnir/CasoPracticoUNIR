@@ -37,21 +37,6 @@
   with_items: "{{ groups.workers }}"
   become: yes
 
-- debug:
-    msg: "Red Docker detectada: {{ docker_network }}"
-#- debug:
-#    msg: "Red Docker formato CIDR: {{ docker_network | ipaddr('net') }}"
-
-# Para usar la funcion ipaddr() es necesario instalar el módulo netaddr: sudo pip3 install netaddr
-- name: Agregando regla para permitir el acceso de los contenedores al master localhost
-  firewalld:
-    rich_rule: "rule family=ipv4 source address={{ docker_network }} accept"
-#    rich_rule: "rule family=ipv4 source address={{ docker_network | ipaddr('net') }} accept"
-    permanent: true
-    zone: public
-    state: enabled
-  become: yes
-
 - name: Reinicia el servicio Firewalld 
   systemd:
     name: firewalld
@@ -151,14 +136,9 @@
     msg: "{{ kubectl_sdn.stdout_lines }}"
   when: sdn == 'calico'
   
-- name: Nginx Ingress Controller
-  shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/baremetal/deploy.yaml
-  register: kubectl_nginxic
+- name: Desplegar Ha proxy
+  command: kubectl apply -f https://raw.githubusercontent.com/haproxytech/kubernetes-ingress/master/deploy/haproxy-ingress.yaml
   become: yes
-  
-- name: resultado Nginx Ingress Controller
-  debug:
-    msg: "{{ kubectl_nginxic.stdout_lines }}"
   
 - name: usuario kubeadmin
   user:
