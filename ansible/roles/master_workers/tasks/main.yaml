@@ -78,7 +78,7 @@
   shell: wget -O /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1/CentOS_8_Stream/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo
   become: yes
   
- - name: instalar paquetes
+- name: instalar paquetes
   dnf:
    name: cri-o
    state: latest
