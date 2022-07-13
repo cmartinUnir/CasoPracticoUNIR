@@ -51,7 +51,7 @@
     msg: "Se ejecutara: kubeadm init --apiserver-advertise-address {{ ansible_host }} --pod-network-cidr {{ pod_network }}"
     
 - name: Instalar CNI y definimos la red
-  shell: "kubeadm init --apiserver-advertise-address 10.0.2.8 --pod-network-cidr {{ pod_network }}"
+  shell: "kubeadm init --apiserver-advertise-address 10.0.2.10 --pod-network-cidr {{ pod_network }}"
   register: kubeadd_cmd
   become: yes
 
